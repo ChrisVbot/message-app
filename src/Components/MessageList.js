@@ -7,6 +7,7 @@ class MessageList extends Component {
         super(props);
         this.state = {
             messages: {},
+            results: []
         }
         this.handleDelete = this.handleDelete.bind(this);
     }
@@ -15,7 +16,8 @@ class MessageList extends Component {
             .then(data => data.json())
             .then(messages => {
                 this.setState({
-                    messages
+                    messages,
+                    results: messages.results
                 });
             })
     }
@@ -24,21 +26,32 @@ class MessageList extends Component {
        console.log(messages)
     }
 
+
     handleDelete(messageID) {
         fetch(`https://chrisv-test.herokuapp.com/messages/${messageID}`, {
             method: 'DELETE',
-        }).then(response => console.log(response));
+        }).then(response => this.removeDeletedMessages(messageID));
+    }
+
+    removeDeletedMessages(messageID) {
+        // Filters out the deleted message and sets state with filtered result
+        const filteredMessages = this.state.messages.results.filter((message) => 
+            message.id !== messageID
+        );
+        this.setState({
+            results: filteredMessages
+        });
     }
 
     render() {
-        if (!this.state.messages.results) {
+        if (!this.state.results) {
             return (
                 <div>Awaiting messages</div>
             )
         } else {
             return (
                 <div>
-                    {this.state.messages.results.map((message) => {
+                    {this.state.results.map((message) => {
                         return (
                             <div key={message.id}>
                                 {formatDate(message.created_at)}: {message.text}
