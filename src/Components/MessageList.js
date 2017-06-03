@@ -8,6 +8,7 @@ class MessageList extends Component {
         this.state = {
             messages: {},
         }
+        this.handleDelete = this.handleDelete.bind(this);
     }
     componentDidMount() {
         fetch('https://chrisv-test.herokuapp.com/messages/')
@@ -21,6 +22,12 @@ class MessageList extends Component {
 
     renderMessages(messages) {
        console.log(messages)
+    }
+
+    handleDelete(messageID) {
+        fetch(`https://chrisv-test.herokuapp.com/messages/${messageID}`, {
+            method: 'DELETE',
+        }).then(response => console.log(response));
     }
 
     render() {
@@ -38,6 +45,8 @@ class MessageList extends Component {
                                 <p>
                                     <Link to={`/messages/${message.id}`}>Click for details</Link>
                                 </p>
+                                <button onClick={() => {
+                                    this.handleDelete(message.id)}}>Delete</button>
                             </div>)
                     })}
                 </div>

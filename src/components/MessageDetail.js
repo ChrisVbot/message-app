@@ -23,7 +23,8 @@ class MessageDetail extends Component {
 
     render() {
         const { author, created_at, id, in_reply_to, text, updated_at, utc_offset } = this.state.message;
-        if (!author || !text) {
+        // TODO: Implement better way to check this data
+        if (!text) {
             return (
                 <div>Fetching info</div>
             )
@@ -31,7 +32,7 @@ class MessageDetail extends Component {
         else {
             return(
                 <ul>
-                    <li>Author: {author}</li>
+                    <li>Author: {author ? author : 'Unknown'}</li>
                     <li>Created: {created_at}</li>
                     <li>Message ID: {id}</li>
                     <li>In reply to: {in_reply_to}</li>

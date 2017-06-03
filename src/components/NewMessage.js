@@ -30,6 +30,7 @@ class NewMessage extends Component {
                 text: message
             })
         }).then(result => console.log(result));
+        
 
     }
 
