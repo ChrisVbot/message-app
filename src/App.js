@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MessageList from './Components/MessageList';
+import MessageList from './components/MessageList';
 import logo from './logo.svg';
 import './App.css';
 

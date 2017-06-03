@@ -22,8 +22,6 @@ class MessageList extends Component {
        console.log(messages)
     }
 
-
-
     render() {
         if (!this.state.messages.results) {
             return (
@@ -32,11 +30,9 @@ class MessageList extends Component {
         } else {
             return (
                 <div>
-                    <ul>
                     {this.state.messages.results.map((message) => {
-                        return <li key={message.id}>{formatDate(message.date)}, {message.text}</li>
+                        return <div key={message.id}>{formatDate(message.created_at)}, {message.text}</div>
                     })}
-                    </ul>
                 </div>
             )
         }
@@ -44,9 +40,8 @@ class MessageList extends Component {
     }
 }
 
-// Helper function to format dates
 function formatDate(date) {
-    return moment().format('MMMM Do YYY, h:mm a');
+    return moment(date).format('MMMM Do YYYY, h:mm a');
 }
 
 export default MessageList;
